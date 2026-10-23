@@ -183,7 +183,7 @@ export function LayersPanel() {
               <select
                 value={first.blend}
                 onChange={(e) => st.updateSelected((l) => void (l.blend = e.target.value as BlendMode))}
-                className="rounded-2xl border-2 border-line bg-surface px-3 py-2 text-sm font-bold focus:border-accent focus:outline-none cursor-pointer"
+                className="rounded-2xl border border-line bg-surface px-3 py-2 text-sm font-bold focus:border-accent focus:outline-none cursor-pointer"
               >
                 {BLENDS.map((b) => (
                   <option key={b.value} value={b.value}>

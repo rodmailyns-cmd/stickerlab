@@ -31,9 +31,9 @@ export function Onboarding() {
             animate={{ scale: 1, y: 0 }}
             exit={{ scale: 0.95, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 300, damping: 26 }}
-            className="relative w-full max-w-md overflow-hidden rounded-4xl border-2 border-line bg-surface p-6 text-center shadow-soft"
+            className="relative w-full max-w-md overflow-hidden rounded-4xl border border-line bg-surface p-6 text-center shadow-soft"
           >
-            <p className="mb-2 inline-flex items-center gap-1 rounded-full bg-accent-soft px-3 py-1 text-xs font-extrabold text-accent-text">
+            <p className="mb-2 inline-flex items-center gap-1 rounded-full bg-accent-soft px-3 py-1 text-xs font-bold text-accent-text">
               <Sparkles className="size-3.5" /> Bienvenida a StickerLab · {step + 1}/3
             </p>
             <AnimatePresence mode="wait">
@@ -47,7 +47,7 @@ export function Onboarding() {
             </AnimatePresence>
             <div className="mt-5 flex items-center justify-center gap-2" aria-hidden>
               {STEPS.map((_, i) => (
-                <span key={i} className={cn('h-2.5 rounded-full transition-all', i === step ? 'w-7 bg-gradient-to-r from-accent to-accent-2' : 'w-2.5 bg-surface-3')} />
+                <span key={i} className={cn('h-2.5 rounded-full transition-all', i === step ? 'w-7 bg-accent' : 'w-2.5 bg-surface-3')} />
               ))}
             </div>
             <div className="mt-5 flex items-center justify-between gap-2">

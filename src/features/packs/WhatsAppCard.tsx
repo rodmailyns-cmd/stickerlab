@@ -92,7 +92,7 @@ export function WhatsAppCard({ pack, stickers, blocking, checking }: { pack: Pac
   const notInstalled = status && !status.installed
 
   return (
-    <div className="flex flex-col gap-3 rounded-4xl border-2 border-[#25d366]/40 bg-gradient-to-br from-[#25d366]/12 to-surface p-4 shadow-soft">
+    <div className="flex flex-col gap-3 rounded-4xl border border-[#25d366]/40 bg-[#25d366]/8 p-4">
       <div className="flex items-center justify-between gap-2">
         <h2 className="font-display text-lg font-semibold">WhatsApp</h2>
         <AnimatePresence mode="wait">
@@ -101,7 +101,7 @@ export function WhatsAppCard({ pack, stickers, blocking, checking }: { pack: Pac
               key="added"
               initial={{ scale: 0.6, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="flex items-center gap-1 rounded-full bg-[#25d366] px-3 py-1 text-sm font-extrabold text-white"
+              className="flex items-center gap-1 rounded-full bg-[#25d366] px-3 py-1 text-sm font-bold text-white"
             >
               Añadido <CheckCircle2 className="size-4" />
             </motion.span>

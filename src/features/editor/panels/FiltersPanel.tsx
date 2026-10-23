@@ -46,7 +46,7 @@ export function FiltersPanel() {
         <div className="grid grid-cols-4 gap-2">
           {FILTER_PRESETS.map((p) => (
             <button key={p.id} onClick={() => updateSelected((l) => void (l.filters = { ...DEFAULT_FILTERS, ...p.settings }))} className="group flex flex-col items-center gap-1 cursor-pointer">
-              <span className={cn('aspect-square w-full rounded-2xl border-2 border-line transition-transform group-hover:-translate-y-0.5')} style={{ background: PRESET_STYLE[p.id] }} />
+              <span className={cn('aspect-square w-full rounded-2xl border border-line transition-transform group-hover:-translate-y-0.5')} style={{ background: PRESET_STYLE[p.id] }} />
               <span className="text-[11px] font-bold">{p.label}</span>
             </button>
           ))}

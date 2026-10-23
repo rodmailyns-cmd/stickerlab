@@ -22,7 +22,7 @@ function PackCard({ p }: { p: PackRecord }) {
       whileHover={{ y: -4 }}
       whileTap={{ scale: 0.98 }}
       onClick={() => open(p.id)}
-      className="flex flex-col gap-3 rounded-4xl border-2 border-line bg-surface p-4 text-left shadow-soft cursor-pointer"
+      className="flex flex-col gap-3 rounded-4xl border border-line bg-surface p-4 text-left shadow-soft cursor-pointer"
     >
       <div className="grid grid-cols-4 gap-1.5">
         {Array.from({ length: 4 }, (_, i) => (
@@ -34,7 +34,7 @@ function PackCard({ p }: { p: PackRecord }) {
           <h3 className="truncate font-display text-lg font-semibold">{p.name}</h3>
           <p className="truncate text-xs text-muted">{p.publisher || 'Sin autor'}</p>
         </div>
-        <span className="shrink-0 rounded-full bg-surface-3 px-2.5 py-1 text-xs font-extrabold">
+        <span className="shrink-0 rounded-full bg-surface-3 px-2.5 py-1 text-xs font-bold">
           {p.items.length}/30 · {p.animated ? 'animado' : 'estático'}
         </span>
       </div>

@@ -49,7 +49,7 @@ export function TextPanel() {
             <button
               key={p.id}
               onClick={() => (layer ? set((l) => void Object.assign(l, structuredClone(p.patch))) : addLayer(newTextLayer(p.id === 'meme' ? 'CUANDO...' : '¡Hola!', structuredClone(p.patch))))}
-              className="truncate rounded-2xl border-2 border-line bg-surface-2 px-2 py-2.5 text-[17px] transition hover:-translate-y-0.5 hover:border-accent/50 cursor-pointer"
+              className="truncate rounded-2xl border border-line bg-surface-2 px-2 py-2.5 text-[17px] transition hover:-translate-y-0.5 hover:border-accent/50 cursor-pointer"
               style={{
                 fontFamily: `"${p.patch.fontFamily}"`,
                 color: p.patch.gradient ? p.patch.gradient.from : p.patch.fill,

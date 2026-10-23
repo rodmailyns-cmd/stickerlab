@@ -94,7 +94,7 @@ export function ElementsPanel() {
               title={s.label}
               aria-label={`Añadir ${s.label}`}
               onClick={() => addLayer(newShapeLayer(s.id, s.category === 'marcos' ? 480 : 200))}
-              className="aspect-square rounded-2xl border-2 border-line bg-surface-2 p-2 hover:border-accent/50 cursor-pointer"
+              className="aspect-square rounded-2xl border border-line bg-surface-2 p-2 hover:border-accent/50 cursor-pointer"
             >
               <ShapeThumb path={s.path} fill={s.fill} stroke={s.stroke} />
             </motion.button>

@@ -46,7 +46,7 @@ export function AddToPackMenu({ sticker, children }: { sticker: StickerRecord; c
             initial={{ opacity: 0, y: 6, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 6, scale: 0.97 }}
-            className="absolute bottom-full right-0 z-20 mb-2 w-64 rounded-3xl border-2 border-line bg-surface p-2 shadow-soft"
+            className="absolute bottom-full right-0 z-20 mb-2 w-64 rounded-3xl border border-line bg-surface p-2 shadow-soft"
             role="menu"
           >
             <p className="px-2 pb-1 text-xs font-bold text-muted">Packs {sticker.animated ? 'animados' : 'estáticos'}</p>

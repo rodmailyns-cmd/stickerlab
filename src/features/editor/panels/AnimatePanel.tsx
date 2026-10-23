@@ -29,7 +29,7 @@ export function AnimatePanel() {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="rounded-3xl bg-gradient-to-br from-accent-soft to-surface-3 p-4">
+      <div className="rounded-3xl bg-surface-2 p-4">
         <Toggle label="Sticker animado" hint={doc.animated ? 'Se exportará como WebP animado (máx. 500 KB)' : 'Ahora se exporta como estático (máx. 100 KB)'} checked={doc.animated} onChange={(v) => setDoc((d) => void (d.animated = v))} />
       </div>
 
@@ -69,7 +69,7 @@ export function AnimatePanel() {
         </div>
         {sel?.animations.map((a, i) => (
           <div key={a.preset} className="flex flex-col gap-2 rounded-2xl bg-surface-2 p-3">
-            <p className="text-sm font-extrabold">{PRESETS.find((p) => p.id === a.preset)?.label}</p>
+            <p className="text-sm font-bold">{PRESETS.find((p) => p.id === a.preset)?.label}</p>
             <Slider label="Velocidad" value={a.speed} min={0.25} max={4} step={0.25} format={(v) => `×${v}`} onChange={(v) => updateLayer(sel.id, (l) => void (l.animations[i].speed = v), { coalesce: `${sel.id}-sp${i}` })} />
             {a.preset !== 'spin' && a.preset !== 'rainbow' && (
               <Slider label="Intensidad" value={a.intensity} min={0.1} max={2} step={0.1} format={(v) => `${Math.round(v * 100)}%`} onChange={(v) => updateLayer(sel.id, (l) => void (l.animations[i].intensity = v), { coalesce: `${sel.id}-in${i}` })} />

@@ -6,7 +6,7 @@ export function Toasts() {
   const toasts = useUi((s) => s.toasts)
   const dismiss = useUi((s) => s.dismissToast)
   return (
-    <div className="pointer-events-none fixed inset-x-0 top-[calc(4.5rem+var(--sat))] z-[60] flex flex-col items-center gap-2 px-3" aria-live="polite">
+    <div className="pointer-events-none fixed inset-x-0 bottom-[calc(4.75rem+var(--sab))] z-[60] flex flex-col-reverse lg:top-[calc(4.5rem+var(--sat))] lg:bottom-auto lg:flex-col items-center gap-2 px-3" aria-live="polite">
       <AnimatePresence>
         {toasts.map((t) => {
           const Icon = t.kind === 'success' ? CheckCircle2 : t.kind === 'error' ? XCircle : Info
@@ -18,7 +18,7 @@ export function Toasts() {
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: -20, opacity: 0, scale: 0.9 }}
               onClick={() => dismiss(t.id)}
-              className="pointer-events-auto flex max-w-md items-center gap-2 rounded-2xl border-2 border-line bg-surface px-4 py-3 text-left text-sm font-bold shadow-soft cursor-pointer"
+              className="pointer-events-auto flex max-w-md items-center gap-2 rounded-full border border-line bg-surface px-4 py-2.5 text-left text-sm font-bold shadow-soft cursor-pointer"
             >
               <Icon className={t.kind === 'success' ? 'size-5 text-ok' : t.kind === 'error' ? 'size-5 text-danger' : 'size-5 text-accent-2'} />
               {t.text}

@@ -41,11 +41,11 @@ function StickerRow({ pack, s, emojis, onEmojis, onRemove }: { pack: PackRecord;
   useEffect(() => setText(emojis.join('')), [emojis])
   const idx = pack.items.findIndex((i) => i.stickerId === s.id)
   return (
-    <Reorder.Item value={s.id} className="flex items-center gap-3 rounded-3xl border-2 border-line bg-surface p-2 pr-3 shadow-soft" whileDrag={{ scale: 1.02 }}>
+    <Reorder.Item value={s.id} className="flex items-center gap-3 rounded-3xl border border-line bg-surface p-2 pr-3 shadow-soft" whileDrag={{ scale: 1.02 }}>
       <GripVertical className="size-5 shrink-0 cursor-grab text-muted active:cursor-grabbing" aria-label="Arrastrar para ordenar" />
       <span className="checker size-16 shrink-0 overflow-hidden rounded-2xl">{url && <img src={url} alt={s.name} className="size-full object-contain" />}</span>
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-extrabold">
+        <p className="truncate text-sm font-bold">
           <span className="text-muted">{stickerFileName(idx)}</span> · {s.name}
         </p>
         <label className="mt-1 flex items-center gap-2">
@@ -57,7 +57,7 @@ function StickerRow({ pack, s, emojis, onEmojis, onRemove }: { pack: PackRecord;
             onKeyDown={(e) => e.key === 'Enter' && (e.target as HTMLInputElement).blur()}
             placeholder="😀🎉"
             aria-label={`Emojis de ${s.name} (hasta 3)`}
-            className="w-28 rounded-xl border-2 border-line bg-surface-2 px-2 py-1 text-lg outline-none focus:border-accent"
+            className="w-28 rounded-xl border border-line bg-surface-2 px-2 py-1 text-lg outline-none focus:border-accent"
           />
         </label>
       </div>
@@ -78,7 +78,7 @@ function IssueList({ issues }: { issues: Issue[] | null }) {
   if (!issues) return <p className="text-sm text-muted">Comprobando…</p>
   if (!issues.length)
     return (
-      <p className="flex items-center gap-2 rounded-2xl bg-ok/12 p-3 text-sm font-extrabold text-ok">
+      <p className="flex items-center gap-2 rounded-2xl bg-ok/12 p-3 text-sm font-bold text-ok">
         <CheckCircle2 className="size-5" /> Todo cumple los requisitos de WhatsApp.
       </p>
     )
@@ -295,9 +295,9 @@ export function PackEditor({ pack }: { pack: PackRecord }) {
 
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_380px]">
         <div className="flex flex-col gap-5">
-          <div className="grid grid-cols-1 gap-4 rounded-4xl border-2 border-line bg-surface p-4 shadow-soft sm:grid-cols-[auto_minmax(0,1fr)]">
+          <div className="grid grid-cols-1 gap-4 rounded-4xl border border-line bg-surface p-4 shadow-soft sm:grid-cols-[auto_minmax(0,1fr)]">
             <div className="flex flex-col items-center gap-2">
-              <span className="checker grid size-24 place-items-center overflow-hidden rounded-3xl border-2 border-line">
+              <span className="checker grid size-24 place-items-center overflow-hidden rounded-3xl border border-line">
                 {trayUrl ? <img src={trayUrl} alt="Icono de bandeja" className="size-[96px]" /> : <Package className="size-8 text-muted" />}
               </span>
               <span className="text-[11px] font-bold text-muted">Icono 96×96</span>
@@ -317,7 +317,7 @@ export function PackEditor({ pack }: { pack: PackRecord }) {
                 <select
                   value={pack.tray ? 'custom' : (pack.traySourceId ?? '')}
                   onChange={(e) => e.target.value !== 'custom' && update({ tray: null, traySourceId: e.target.value || null })}
-                  className="min-w-0 max-w-full flex-1 truncate rounded-xl border-2 border-line bg-surface px-2 py-1 text-sm font-bold cursor-pointer sm:flex-none"
+                  className="min-w-0 max-w-full flex-1 truncate rounded-xl border border-line bg-surface px-2 py-1 text-sm font-bold cursor-pointer sm:flex-none"
                   aria-label="Elegir icono del pack"
                 >
                   <option value="">Automático (primer sticker)</option>
@@ -369,7 +369,7 @@ export function PackEditor({ pack }: { pack: PackRecord }) {
 
         <div className="flex flex-col gap-5">
           <WhatsAppCard pack={pack} stickers={stickers} blocking={blocking} checking={!issues} />
-          <div className="flex flex-col gap-3 rounded-4xl border-2 border-line bg-surface p-4 shadow-soft">
+          <div className="flex flex-col gap-3 rounded-4xl border border-line bg-surface p-4 shadow-soft">
             <h2 className="flex items-center gap-2 font-display text-lg font-semibold">
               <ShieldCheck className="size-5 text-ok" /> Validador de WhatsApp
             </h2>
@@ -381,7 +381,7 @@ export function PackEditor({ pack }: { pack: PackRecord }) {
             )}
           </div>
 
-          <div className="flex flex-col gap-2 rounded-4xl border-2 border-line bg-surface p-4 shadow-soft">
+          <div className="flex flex-col gap-2 rounded-4xl border border-line bg-surface p-4 shadow-soft">
             <h2 className="font-display text-lg font-semibold">{isNative ? 'Guardar y compartir' : 'Exportar'}</h2>
             {blocking && issues && <p className="text-xs font-bold text-danger">Corrige los errores para exportar el pack.</p>}
             <Button variant={isNative ? 'secondary' : 'primary'} icon={Package} disabled={blocking || !!busy} onClick={() => void exportWastickers()}>
@@ -400,7 +400,7 @@ export function PackEditor({ pack }: { pack: PackRecord }) {
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 rounded-4xl border-2 border-line bg-surface p-4 shadow-soft">
+          <div className="flex flex-col gap-3 rounded-4xl border border-line bg-surface p-4 shadow-soft">
             <h2 className="font-display text-lg font-semibold">Cómo añadirlo a WhatsApp</h2>
             <WhatsAppGuide />
           </div>

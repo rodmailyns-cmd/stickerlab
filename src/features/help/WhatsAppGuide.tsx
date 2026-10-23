@@ -62,7 +62,7 @@ export function WhatsAppGuide() {
       <ol className="flex flex-col gap-2">
         {g.steps.map((s, i) => (
           <li key={i} className="flex gap-3 rounded-2xl bg-surface-2 p-3 text-sm">
-            <span className="grid size-7 shrink-0 place-items-center rounded-full bg-gradient-to-br from-accent to-accent-2 text-xs font-black text-white">{i + 1}</span>
+            <span className="grid size-7 shrink-0 place-items-center rounded-full bg-accent text-xs font-black text-white">{i + 1}</span>
             <span className="pt-0.5">{s}</span>
           </li>
         ))}

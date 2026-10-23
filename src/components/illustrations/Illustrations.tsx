@@ -131,7 +131,7 @@ export function LoadingCard({ label, progress, detail }: { label: string; progre
       {detail && <p className="text-sm text-muted">{detail}</p>}
       {progress !== undefined && (
         <div className="h-2.5 w-56 overflow-hidden rounded-full bg-surface-3">
-          <motion.div className="h-full rounded-full bg-gradient-to-r from-accent via-accent-2 to-sky" animate={{ width: `${Math.max(4, progress * 100)}%` }} />
+          <motion.div className="h-full rounded-full bg-accent" animate={{ width: `${Math.max(4, progress * 100)}%` }} />
         </div>
       )}
     </div>

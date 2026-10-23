@@ -52,14 +52,14 @@ export function Modal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <div className="absolute inset-0 bg-[#2b2140]/40 backdrop-blur-sm" onClick={dismissable ? onClose : undefined} aria-hidden />
+          <div className="absolute inset-0 bg-[#2b2140]/35" onClick={dismissable ? onClose : undefined} aria-hidden />
           <motion.div
             ref={ref}
             role="dialog"
             aria-modal="true"
             aria-label={typeof title === 'string' ? title : undefined}
             className={cn(
-              'relative flex max-h-[calc(92dvh-var(--sat))] w-full flex-col overflow-hidden rounded-t-4xl bg-surface shadow-soft sm:rounded-4xl border-2 border-line',
+              'relative flex max-h-[calc(92dvh-var(--sat))] w-full flex-col overflow-hidden rounded-t-4xl bg-surface shadow-soft sm:rounded-4xl',
               widths[size],
             )}
             initial={{ y: 60, scale: 0.97, opacity: 0 }}
@@ -68,7 +68,7 @@ export function Modal({
             transition={{ type: 'spring', stiffness: 380, damping: 32 }}
           >
             <div className="flex items-center justify-between gap-3 px-5 pt-5 pb-3">
-              <h2 className="font-display text-xl font-semibold">{title}</h2>
+              <h2 className="font-display text-lg font-semibold">{title}</h2>
               {dismissable && (
                 <button onClick={onClose} aria-label="Cerrar" className="rounded-xl p-2 hover:bg-surface-3 cursor-pointer">
                   <X className="size-5" />
@@ -76,7 +76,7 @@ export function Modal({
               )}
             </div>
             <div className="scroll-thin overflow-y-auto px-5 pb-5">{children}</div>
-            {footer && <div className="flex flex-wrap items-center justify-end gap-2 border-t-2 border-line bg-surface-2 px-5 pt-3 pb-[max(0.75rem,var(--sab))] sm:pb-3">{footer}</div>}
+            {footer && <div className="flex flex-wrap items-center justify-end gap-2 border-t border-line px-5 pt-3 pb-[max(0.75rem,var(--sab))] sm:pb-3">{footer}</div>}
           </motion.div>
         </motion.div>
       )}

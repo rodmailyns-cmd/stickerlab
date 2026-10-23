@@ -30,7 +30,7 @@ function TemplateCard({ t, onPick }: { t: Template; onPick: (t: Template) => voi
       className="group flex flex-col items-center gap-1 cursor-pointer"
       aria-label={`Usar ${t.label}`}
     >
-      <span className="checker block aspect-square w-full overflow-hidden rounded-2xl border-2 border-line group-hover:border-accent/50">
+      <span className="checker block aspect-square w-full overflow-hidden rounded-2xl border border-line group-hover:border-accent/50">
         {src ? <img src={src} alt="" className="size-full object-contain" /> : <span className="block size-full animate-pulse bg-surface-3" />}
       </span>
       <span className="text-xs font-bold">{t.label}</span>

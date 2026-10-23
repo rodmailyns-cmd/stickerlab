@@ -112,7 +112,8 @@ Si un sticker se pasa del límite, el optimizador baja calidad, FPS, detalle y c
 
 ## Experiencia móvil nativa (APK)
 
-- Diseño mobile-first: barra inferior, **hoja deslizable** (arrastra el asa para ampliarla o cerrarla) y gestos de **pellizcar para escalar y girar con dos dedos** la capa seleccionada. Sin capa seleccionada, pellizcar hace zoom en el lienzo.
+- Diseño minimalista y mobile-first: el **lienzo ocupa todo el ancho** de la pantalla, el panel de cada herramienta va debajo (se puede ampliar o cerrar) y la barra de herramientas abajo. Gestos de **pellizcar para escalar y girar con dos dedos** la capa seleccionada; sin capa seleccionada, pellizcar hace zoom en el lienzo.
+- **Recorte de vídeo** con tira de miniaturas: arrastra los bordes para elegir el tramo (máx. 10 s) o el centro para moverlo, y elige calidad Ligero / Normal / Fluido.
 - Respeta las **áreas seguras** (muesca y barra de navegación), orientación vertical y teclado (la barra inferior se oculta al escribir).
 - **Vibración háptica** sutil al añadir/borrar capas, guardar, añadir a un pack y añadir a WhatsApp.
 - **Botón atrás de Android**: cierra diálogos, menús y la hoja inferior; vuelve de un pack a la lista, luego al editor, y después minimiza la app.

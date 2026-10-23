@@ -63,17 +63,17 @@ function StickerCard({ s }: { s: StickerRecord }) {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       whileHover={{ y: -4 }}
-      className="group relative flex flex-col rounded-4xl border-2 border-line bg-surface p-2.5 shadow-soft"
+      className="group relative flex flex-col rounded-4xl border border-line bg-surface p-2.5 shadow-soft"
     >
       <button onClick={() => openInEditor(s)} className="checker relative aspect-square overflow-hidden rounded-3xl cursor-pointer" aria-label={`Editar ${s.name}`}>
         {url && <img src={url} alt={s.name} loading="lazy" className="size-full object-contain transition-transform duration-300 group-hover:scale-105" />}
-        <span className="absolute left-2 top-2 rounded-full bg-surface/90 px-2 py-0.5 text-[11px] font-extrabold backdrop-blur">{s.animated ? '▶ Animado' : 'Estático'}</span>
+        <span className="absolute left-2 top-2 rounded-full bg-surface px-2 py-0.5 text-[11px] font-bold">{s.animated ? '▶ Animado' : 'Estático'}</span>
       </button>
       <button
         onClick={() => void saveSticker({ ...s, favorite: !s.favorite, updatedAt: s.updatedAt })}
         aria-label={s.favorite ? 'Quitar de favoritos' : 'Marcar como favorito'}
         aria-pressed={s.favorite}
-        className="absolute right-4 top-4 grid size-9 place-items-center rounded-full bg-surface/90 shadow backdrop-blur cursor-pointer"
+        className="absolute right-4 top-4 grid size-9 place-items-center rounded-full bg-surface shadow backdrop-blur cursor-pointer"
       >
         <motion.span whileTap={{ scale: 1.5 }}>
           <Heart className={cn('size-5', s.favorite ? 'fill-accent text-accent' : 'text-muted')} />
@@ -81,7 +81,7 @@ function StickerCard({ s }: { s: StickerRecord }) {
       </button>
       <div className="flex items-start justify-between gap-2 px-1.5 pt-2">
         <div className="min-w-0">
-          <h3 className="truncate text-sm font-extrabold">{s.name}</h3>
+          <h3 className="truncate text-sm font-bold">{s.name}</h3>
           <p className="text-xs text-muted">
             {formatBytes(s.bytes)} · {s.emojis.join('') || 'sin emojis'}
           </p>
@@ -96,7 +96,7 @@ function StickerCard({ s }: { s: StickerRecord }) {
           ))}
         </div>
       )}
-      <div className="mt-2 flex items-center justify-between gap-0.5 border-t-2 border-line pt-2">
+      <div className="mt-2 flex items-center justify-between gap-0.5 border-t border-line pt-2">
         <IconButton size="sm" icon={Pencil} label="Editar" onClick={() => openInEditor(s)} />
         <IconButton size="sm" icon={Copy} label="Duplicar" onClick={() => void duplicate()} />
         <IconButton size="sm" icon={Tag} label="Etiquetas" onClick={() => void editTags()} />
@@ -172,7 +172,7 @@ export default function LibraryPage() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-3 rounded-4xl border-2 border-line bg-surface/80 p-3 shadow-soft backdrop-blur sm:flex-row sm:items-center">
+      <div className="flex flex-col gap-3 rounded-4xl border border-line bg-surface/80 p-3 shadow-soft backdrop-blur sm:flex-row sm:items-center">
         <label className="flex flex-1 items-center gap-2 rounded-2xl bg-surface-2 px-3">
           <Search className="size-4 text-muted" />
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Buscar por nombre, etiqueta o emoji…" aria-label="Buscar stickers" className="h-10 w-full bg-transparent text-sm font-semibold outline-none" />

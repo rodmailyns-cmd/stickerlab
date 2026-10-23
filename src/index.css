@@ -25,7 +25,7 @@
   --lemon: #ffcf4d;
   --danger: #e5484d;
   --ok: #1f9d72;
-  --shadow: 0 10px 30px -12px rgb(122 70 160 / 0.25), 0 2px 6px -2px rgb(122 70 160 / 0.12);
+  --shadow: 0 1px 2px rgb(122 70 160 / 0.06), 0 6px 20px -10px rgb(122 70 160 / 0.16);
   --checker-a: #ffffff;
   --checker-b: #f1eaf8;
   color-scheme: light;
@@ -49,7 +49,7 @@
   --lemon: #ffd970;
   --danger: #ff6b70;
   --ok: #4cd8a6;
-  --shadow: 0 10px 30px -12px rgb(0 0 0 / 0.6), 0 2px 6px -2px rgb(0 0 0 / 0.4);
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 6px 20px -10px rgb(0 0 0 / 0.5);
   --checker-a: #2b2440;
   --checker-b: #241d36;
   color-scheme: dark;
@@ -76,7 +76,7 @@
   --shadow-soft: var(--shadow);
   --font-sans: "Nunito", ui-rounded, system-ui, sans-serif;
   --font-display: "Fredoka", "Nunito", ui-rounded, system-ui, sans-serif;
-  --radius-4xl: 2rem;
+  --radius-4xl: 1.5rem;
 }
 
 html,
@@ -93,18 +93,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior: none;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(40rem 30rem at 0% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%),
-    radial-gradient(36rem 30rem at 100% 0%, color-mix(in srgb, var(--accent-2) 14%, transparent), transparent 70%),
-    radial-gradient(40rem 30rem at 50% 110%, color-mix(in srgb, var(--mint) 12%, transparent), transparent 70%),
-    var(--bg);
 }
 
 :focus-visible {
@@ -138,9 +126,9 @@ body::before {
 
 input[type="range"].sl-range {
   appearance: none;
-  height: 8px;
+  height: 4px;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) var(--fill, 50%), var(--surface-3) var(--fill, 50%));
+  background: linear-gradient(90deg, var(--accent) var(--fill, 50%), var(--surface-3) var(--fill, 50%));
   cursor: pointer;
 }
 input[type="range"].sl-range::-webkit-slider-thumb {
@@ -149,8 +137,8 @@ input[type="range"].sl-range::-webkit-slider-thumb {
   height: 20px;
   border-radius: 999px;
   background: #fff;
-  border: 3px solid var(--accent);
-  box-shadow: 0 2px 6px rgb(0 0 0 / 0.2);
+  border: 2px solid var(--accent);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.15);
   transition: transform 0.15s;
 }
 input[type="range"].sl-range::-webkit-slider-thumb:hover {

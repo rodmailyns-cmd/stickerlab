@@ -17,8 +17,8 @@ export interface ButtonProps extends Omit<HTMLMotionProps<'button'>, 'children'>
 
 const variants: Record<Variant, string> = {
   primary:
-    'text-white bg-gradient-to-r from-accent to-accent-2 shadow-[0_8px_20px_-8px_var(--accent)] hover:brightness-105 disabled:opacity-50',
-  secondary: 'bg-surface text-ink border-2 border-line hover:border-accent/50 hover:bg-surface-2 disabled:opacity-50',
+    'text-white bg-accent hover:brightness-105 disabled:opacity-50',
+  secondary: 'bg-surface text-ink border border-line hover:bg-surface-2 disabled:opacity-50',
   soft: 'bg-accent-soft text-accent-text hover:brightness-[0.97] disabled:opacity-50',
   ghost: 'bg-transparent text-ink hover:bg-surface-3 disabled:opacity-40',
   danger: 'bg-danger text-white hover:brightness-105 disabled:opacity-50',
@@ -80,7 +80,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(functio
       className={cn(
         'inline-flex items-center justify-center rounded-xl transition-colors cursor-pointer disabled:opacity-35 disabled:cursor-not-allowed',
         size === 'sm' ? 'size-8' : 'size-10',
-        variant === 'surface' ? 'bg-surface border-2 border-line hover:border-accent/40' : 'hover:bg-surface-3',
+        variant === 'surface' ? 'bg-surface border border-line' : 'hover:bg-surface-3',
         active && 'bg-accent-soft text-accent-text hover:bg-accent-soft',
         className,
       )}

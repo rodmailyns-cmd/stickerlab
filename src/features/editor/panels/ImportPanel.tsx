@@ -53,17 +53,18 @@ export function ImportPanel() {
     <div className="flex flex-col gap-5">
       <Section title="Añade tu imagen">
         <motion.button
-          whileHover={{ y: -2 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => input.current?.click()}
           disabled={busy}
-          className="group flex flex-col items-center gap-2 rounded-3xl border-2 border-dashed border-accent/40 bg-accent-soft/50 px-4 py-7 text-center transition-colors hover:border-accent cursor-pointer"
+          className="group flex items-center gap-3 rounded-2xl border border-dashed border-accent/50 bg-accent-soft/40 px-4 py-4 text-left transition-colors hover:border-accent cursor-pointer"
         >
-          <span className="grid size-14 place-items-center rounded-2xl bg-gradient-to-br from-accent to-accent-2 text-white shadow-soft transition-transform group-hover:rotate-6">
-            {busy ? <span className="size-6 rounded-full border-3 border-white border-t-transparent animate-spin" /> : <Upload className="size-7" />}
+          <span className="grid size-10 shrink-0 place-items-center rounded-full bg-accent text-white">
+            {busy ? <span className="size-5 rounded-full border-2 border-white border-t-transparent animate-spin" /> : <Upload className="size-5" />}
           </span>
-          <span className="font-display text-lg font-semibold">{busy ? 'Procesando…' : 'Arrastra o elige un archivo'}</span>
-          <span className="text-xs text-muted">Imágenes, GIF animados y vídeos cortos</span>
+          <span className="flex flex-col">
+            <span className="font-bold">{busy ? 'Procesando…' : 'Elegir imagen o vídeo'}</span>
+            <span className="text-xs text-muted">Fotos, GIF y vídeos cortos</span>
+          </span>
         </motion.button>
         <input
           ref={input}
@@ -85,7 +86,7 @@ export function ImportPanel() {
           </Button>
         </div>
       </Section>
-      <div className="grid gap-2 rounded-3xl bg-surface-2 p-4 text-sm text-muted">
+      <div className="hidden gap-2 rounded-2xl bg-surface-2 p-4 text-sm text-muted lg:grid">
         <p className="flex items-center gap-2">
           <ImagePlus className="size-4 shrink-0 text-accent" /> Suelta imágenes en cualquier parte del editor.
         </p>

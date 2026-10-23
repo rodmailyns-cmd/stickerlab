@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useDragControls } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import {
   Brush,
   ChevronDown,
@@ -22,6 +22,7 @@ import {
   Undo2,
   UploadCloud,
   Download,
+  type LucideIcon,
 } from 'lucide-react'
 import { useEffect, useRef, useState, type ComponentType } from 'react'
 import { Button, IconButton } from '@/components/ui/Button'
@@ -54,7 +55,7 @@ import { FiltersPanel } from './panels/FiltersPanel'
 import { AnimatePanel } from './panels/AnimatePanel'
 import { LayersPanel } from './panels/LayersPanel'
 
-const TOOLS: { id: PanelId; label: string; icon: ComponentType<{ className?: string }>; mobileOnly?: boolean }[] = [
+const TOOLS: { id: PanelId; label: string; icon: LucideIcon; mobileOnly?: boolean }[] = [
   { id: 'import', label: 'Importar', icon: ImagePlus },
   { id: 'templates', label: 'Plantillas', icon: LayoutTemplate },
   { id: 'text', label: 'Texto', icon: Type },
@@ -195,7 +196,7 @@ function ProjectMenu() {
             initial={{ opacity: 0, y: -6, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -6, scale: 0.97 }}
-            className="absolute left-0 top-full z-30 mt-2 w-64 rounded-3xl border-2 border-line bg-surface p-2 shadow-soft"
+            className="absolute left-0 top-full z-30 mt-2 w-64 rounded-3xl border border-line bg-surface p-2 shadow-soft"
           >
             {items.map(({ icon: Icon, label, run }) => (
               <button
@@ -225,13 +226,13 @@ function Toolbar({ onSave }: { onSave: () => void }) {
   const name = useEditor((s) => s.doc.name)
   const { undo, redo, setPlaying, setDoc } = useEditor.getState()
   return (
-    <div className="relative z-20 flex items-center gap-1.5 rounded-3xl border-2 border-line bg-surface/90 p-1.5 shadow-soft backdrop-blur">
+    <div className="relative z-20 flex items-center gap-1 lg:rounded-2xl lg:border lg:border-line lg:bg-surface lg:p-1.5">
       <ProjectMenu />
       <input
         aria-label="Nombre del sticker"
         value={name}
         onChange={(e) => setDoc((d) => void (d.name = e.target.value), { coalesce: 'name' })}
-        className="hidden w-32 min-w-0 rounded-xl bg-transparent px-2 py-1 text-sm font-extrabold outline-none hover:bg-surface-3 focus:bg-surface-3 md:block lg:w-40"
+        className="hidden w-32 min-w-0 rounded-xl bg-transparent px-2 py-1 text-sm font-bold outline-none hover:bg-surface-3 focus:bg-surface-3 md:block lg:w-40"
       />
       <span className="mx-0.5 hidden h-6 w-0.5 rounded bg-line md:block" />
       <IconButton icon={Undo2} label="Deshacer (Ctrl+Z)" onClick={undo} disabled={!canUndo} />
@@ -239,8 +240,8 @@ function Toolbar({ onSave }: { onSave: () => void }) {
       {animated && <IconButton icon={playing ? Pause : Play} label={playing ? 'Pausar' : 'Reproducir'} onClick={() => setPlaying(!playing)} active={playing} />}
       <div className="ml-auto flex min-w-0 items-center gap-1.5">
         <WeightMeter />
-        <Button variant="primary" size="sm" icon={Save} onClick={onSave} className="h-10 px-4" aria-label="Guardar sticker (Ctrl+S)">
-          <span className="hidden sm:inline">Guardar</span>
+        <Button variant="primary" size="sm" icon={Save} onClick={onSave} className="h-9 rounded-full px-4" aria-label="Guardar sticker (Ctrl+S)">
+          <span>Guardar</span>
         </Button>
       </div>
     </div>
@@ -256,7 +257,6 @@ export function EditorPage({ active }: { active: boolean }) {
   const [dragging, setDragging] = useState(false)
   const [sheetOpen, setSheetOpen] = useState(true)
   const [sheetTall, setSheetTall] = useState(false)
-  const dragControls = useDragControls()
   const openSave = useRef(() => setSaveOpen(true)).current
   useShortcuts(active && !saveOpen, openSave)
   useDraft()
@@ -283,6 +283,7 @@ export function EditorPage({ active }: { active: boolean }) {
   const current = TOOLS.find((t) => t.id === effective)!
   // Botón atrás de Android: primero cierra la hoja inferior
   useBackHandler(active && !desktop && sheetOpen, () => setSheetOpen(false))
+  useEffect(() => setSheetOpen(true), [panel])
 
   return (
     <div
@@ -309,7 +310,7 @@ export function EditorPage({ active }: { active: boolean }) {
             onClick={() => setPanel(id)}
             aria-current={effective === id}
             className={cn(
-              'relative flex w-full flex-col items-center gap-1 rounded-2xl py-2.5 text-[11px] font-extrabold transition-colors cursor-pointer',
+              'relative flex w-full flex-col items-center gap-1 rounded-2xl py-2.5 text-[11px] font-bold transition-colors cursor-pointer',
               effective === id ? 'text-accent-text' : 'text-muted hover:bg-surface/70 hover:text-ink',
             )}
           >
@@ -324,7 +325,7 @@ export function EditorPage({ active }: { active: boolean }) {
       {/* Panel lateral (escritorio) */}
       {desktop && (
       <aside aria-label={current.label} className="flex w-[330px] shrink-0 flex-col p-3 pl-2">
-        <div className="flex min-h-0 flex-1 flex-col rounded-4xl border-2 border-line bg-surface/90 shadow-soft backdrop-blur">
+        <div className="flex min-h-0 flex-1 flex-col rounded-4xl border border-line bg-surface shadow-soft">
           <h2 className="px-5 pt-4 pb-2 font-display text-xl font-semibold">{current.label}</h2>
           <div className="scroll-thin min-h-0 flex-1 overflow-y-auto px-5 pb-5">
             <AnimatePresence mode="wait">
@@ -337,18 +338,28 @@ export function EditorPage({ active }: { active: boolean }) {
       </aside>
       )}
 
-      {/* Centro: barra, lienzo y línea de tiempo */}
-      <section className="flex min-h-0 min-w-0 flex-1 flex-col gap-2 p-2 sm:p-3 lg:pl-1">
+      {/* Centro: barra, lienzo y línea de tiempo (en el móvil, también el panel de la herramienta) */}
+      <section className="flex min-h-0 min-w-0 flex-1 flex-col gap-1.5 p-2 sm:p-3 lg:gap-2 lg:pl-1">
         <Toolbar onSave={() => setSaveOpen(true)} />
-        <CanvasStage className="flex-1 py-1" />
-        {animated && (
-          <div className="hidden sm:block">
-            <Timeline />
-          </div>
-        )}
-        {animated && (
-          <div className="sm:hidden">
-            <Timeline compact />
+        <CanvasStage
+          className={cn(
+            'transition-[flex-basis] duration-300',
+            desktop || !sheetOpen ? 'flex-1' : sheetTall ? 'shrink-0 basis-[30dvh]' : 'shrink-0 basis-[min(calc(100vw-1rem),54dvh)]',
+          )}
+        />
+        {animated && (desktop ? <Timeline /> : <Timeline compact />)}
+        {!desktop && sheetOpen && (
+          <div aria-label={current.label} role="region" className="flex min-h-0 flex-1 flex-col">
+            <div className="flex shrink-0 items-center justify-between pl-1">
+              <span className="text-sm font-bold text-muted">{current.label}</span>
+              <div className="flex items-center">
+                <IconButton size="sm" icon={sheetTall ? Minimize2 : Maximize2} label={sheetTall ? 'Reducir panel' : 'Ampliar panel'} onClick={() => setSheetTall(!sheetTall)} />
+                <IconButton size="sm" icon={ChevronDown} label="Contraer panel" onClick={() => setSheetOpen(false)} />
+              </div>
+            </div>
+            <div className="scroll-thin min-h-0 flex-1 overflow-y-auto overscroll-contain px-1 pb-2">
+              <Panel />
+            </div>
           </div>
         )}
       </section>
@@ -356,7 +367,7 @@ export function EditorPage({ active }: { active: boolean }) {
       {/* Capas (escritorio) */}
       {wide && (
       <aside aria-label="Capas" className="flex w-[300px] shrink-0 flex-col p-3 pl-0">
-        <div className="flex min-h-0 flex-1 flex-col rounded-4xl border-2 border-line bg-surface/90 shadow-soft backdrop-blur">
+        <div className="flex min-h-0 flex-1 flex-col rounded-4xl border border-line bg-surface shadow-soft">
           <h2 className="flex items-center gap-2 px-5 pt-4 pb-2 font-display text-xl font-semibold">
             <Layers className="size-5 text-accent-2" /> Capas
           </h2>
@@ -367,62 +378,9 @@ export function EditorPage({ active }: { active: boolean }) {
       </aside>
       )}
 
-      {/* Móvil y tablet: hoja inferior + barra de herramientas */}
+      {/* Móvil y tablet: barra de herramientas inferior */}
       {!desktop && (
-      <div className="flex flex-col">
-        <AnimatePresence initial={false}>
-          {sheetOpen && (
-            <motion.div
-              key="sheet"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="overflow-hidden"
-            >
-              {/* Hoja deslizable: arrastra el asa hacia arriba para ampliarla y hacia abajo para cerrarla */}
-              <motion.div
-                drag="y"
-                dragListener={false}
-                dragControls={dragControls}
-                dragConstraints={{ top: 0, bottom: 0 }}
-                dragElastic={{ top: 0.15, bottom: 0.6 }}
-                onDragEnd={(_, info) => {
-                  if (info.offset.y > 60 || info.velocity.y > 500) {
-                    if (sheetTall) setSheetTall(false)
-                    else setSheetOpen(false)
-                    haptic('select')
-                  } else if (info.offset.y < -40 || info.velocity.y < -500) {
-                    setSheetTall(true)
-                    haptic('select')
-                  }
-                }}
-                className="mx-2 rounded-t-4xl border-2 border-b-0 border-line bg-surface shadow-soft"
-              >
-                <div
-                  onPointerDown={(e) => dragControls.start(e)}
-                  className="flex touch-none flex-col items-center px-5 pt-2 pb-1"
-                >
-                  <span className="h-1.5 w-10 rounded-full bg-line" aria-hidden />
-                  <div className="flex w-full items-center justify-between pt-1">
-                    <span className="font-display text-lg font-semibold">{current.label}</span>
-                    <div className="flex items-center">
-                      <IconButton size="sm" icon={sheetTall ? Minimize2 : Maximize2} label={sheetTall ? 'Reducir panel' : 'Ampliar panel'} onClick={() => setSheetTall(!sheetTall)} />
-                      <IconButton size="sm" icon={ChevronDown} label="Contraer panel" onClick={() => setSheetOpen(false)} />
-                    </div>
-                  </div>
-                </div>
-                <motion.div
-                  animate={{ maxHeight: sheetTall ? '62dvh' : '38dvh' }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 38 }}
-                  className="scroll-thin overflow-y-auto overscroll-contain px-5 pb-4"
-                >
-                  <Panel />
-                </motion.div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-        <nav aria-label="Herramientas" className="hide-on-keyboard no-scrollbar flex gap-1 overflow-x-auto border-t-2 border-line bg-surface/95 px-[max(0.5rem,var(--sal))] pt-1.5 pb-[max(0.4rem,var(--sab))] backdrop-blur">
+        <nav aria-label="Herramientas" className="hide-on-keyboard no-scrollbar flex shrink-0 gap-0.5 overflow-x-auto border-t border-line bg-surface px-[max(0.25rem,var(--sal))] pt-1 pb-[max(0.25rem,var(--sab))]">
           {TOOLS.map(({ id, label, icon: Icon }) => (
             <button
               key={id}
@@ -435,14 +393,16 @@ export function EditorPage({ active }: { active: boolean }) {
                 }
               }}
               aria-current={panel === id}
-              className={cn('flex min-w-16 flex-col items-center gap-0.5 rounded-2xl px-2 py-1.5 text-[11px] font-extrabold cursor-pointer', panel === id ? 'bg-accent-soft text-accent-text' : 'text-muted')}
+              className={cn(
+                'flex min-w-[3.6rem] flex-1 flex-col items-center gap-0.5 rounded-xl px-1 py-1.5 text-[10px] font-bold cursor-pointer transition-colors',
+                panel === id && sheetOpen ? 'text-accent-text' : 'text-muted',
+              )}
             >
-              <Icon className="size-5" />
+              <Icon className="size-[22px]" strokeWidth={panel === id && sheetOpen ? 2.4 : 1.9} />
               {label}
             </button>
           ))}
         </nav>
-      </div>
       )}
 
       <AnimatePresence>

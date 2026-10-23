@@ -50,7 +50,7 @@ export function HelpDialog() {
             <caption className="sr-only">Atajos de teclado</caption>
             <tbody>
               {SHORTCUTS.map(([k, v]) => (
-                <tr key={k} className="border-b-2 border-line last:border-0">
+                <tr key={k} className="border-b border-line last:border-0">
                   <td className="py-2 pr-3">
                     <kbd className="rounded-lg bg-surface-3 px-2 py-1 font-mono text-xs font-bold">{k}</kbd>
                   </td>

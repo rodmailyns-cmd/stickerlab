@@ -54,7 +54,7 @@ export function WeightMeter() {
           <div className={cn('h-full rounded-full transition-all', over ? 'bg-lemon' : ratio > 0.8 ? 'bg-sky' : 'bg-ok')} style={{ width: `${Math.min(100, ratio * 100)}%` }} />
         </div>
       </div>
-      <span className="whitespace-nowrap text-xs font-extrabold tabular-nums">
+      <span className="whitespace-nowrap text-xs font-bold tabular-nums">
         ≈{formatBytes(est.bytes)} <span className="hidden font-semibold text-muted sm:inline">/ {formatBytes(est.maxBytes)}</span>
       </span>
       {over && <span className="hidden whitespace-nowrap rounded-lg bg-lemon/25 px-1.5 text-[11px] font-bold lg:inline">se optimizará</span>}

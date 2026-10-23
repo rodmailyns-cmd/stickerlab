@@ -42,7 +42,7 @@ const vdialog = page.getByRole('dialog', { name: 'Recortar vídeo' })
 await vdialog.waitFor()
 await page.waitForTimeout(800)
 await shot('video-dialog')
-await vdialog.getByRole('button', { name: /Convertir/ }).click()
+await vdialog.getByRole('button', { name: /^Usar/ }).click()
 await page.getByText('Vídeo convertido').first().waitFor({ timeout: 60000 })
 ok('Vídeo convertido en capa animada')
 

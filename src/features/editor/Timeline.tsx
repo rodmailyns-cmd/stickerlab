@@ -41,28 +41,28 @@ export function Timeline({ compact = false }: { compact?: boolean }) {
 
   if (compact) {
     return (
-      <div className="flex items-center gap-2 rounded-3xl border-2 border-line bg-surface/90 p-1.5 shadow-soft" aria-label="Línea de tiempo">
+      <div className="flex shrink-0 items-center gap-2 px-1" aria-label="Línea de tiempo">
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => setPlaying(!playing)}
           aria-label={playing ? 'Pausar' : 'Reproducir'}
-          className="grid size-8 shrink-0 place-items-center rounded-full bg-gradient-to-br from-accent to-accent-2 text-white cursor-pointer"
+          className="grid size-8 shrink-0 place-items-center rounded-full bg-accent text-white cursor-pointer"
         >
           {playing ? <Pause className="size-3.5 fill-white" /> : <Play className="size-3.5 translate-x-px fill-white" />}
         </motion.button>
-        <div ref={trackRef} onPointerDown={onPointerDown} className="relative h-6 flex-1 touch-none overflow-hidden rounded-xl bg-surface-3">
-          <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-accent/40 to-accent-2/40" style={{ width: pct(time) }} />
-          <div className="absolute inset-y-0 w-0.5 bg-accent" style={{ left: pct(time) }} />
+        <div ref={trackRef} onPointerDown={onPointerDown} className="relative h-2 flex-1 touch-none rounded-full bg-surface-3 before:absolute before:-inset-y-3 before:inset-x-0">
+          <div className="absolute inset-y-0 left-0 rounded-full bg-accent" style={{ width: pct(time) }} />
+          <div className="absolute top-1/2 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-accent bg-surface" style={{ left: pct(time) }} />
         </div>
         <span className="shrink-0 font-mono text-[11px] font-bold tabular-nums text-muted">
-          {time.toFixed(1)}/{dur.toFixed(1)}s · {doc.fps}fps
+          {time.toFixed(1)} / {dur.toFixed(1)} s
         </span>
       </div>
     )
   }
 
   return (
-    <div className="flex flex-col gap-2 rounded-3xl border-2 border-line bg-surface/90 p-2.5 shadow-soft backdrop-blur" aria-label="Línea de tiempo">
+    <div className="flex flex-col gap-2 rounded-3xl border border-line bg-surface p-2.5 shadow-soft" aria-label="Línea de tiempo">
       <div className="flex items-center gap-1.5">
         <IconButton icon={SkipBack} label="Ir al inicio" size="sm" onClick={() => setTime(0)} />
         <motion.button
@@ -70,7 +70,7 @@ export function Timeline({ compact = false }: { compact?: boolean }) {
           onClick={() => setPlaying(!playing)}
           aria-label={playing ? 'Pausar (espacio)' : 'Reproducir (espacio)'}
           title={playing ? 'Pausar (espacio)' : 'Reproducir (espacio)'}
-          className="grid size-9 place-items-center rounded-full bg-gradient-to-br from-accent to-accent-2 text-white shadow-soft cursor-pointer"
+          className="grid size-9 place-items-center rounded-full bg-accent text-white shadow-soft cursor-pointer"
         >
           {playing ? <Pause className="size-4 fill-white" /> : <Play className="size-4 translate-x-px fill-white" />}
         </motion.button>
@@ -79,7 +79,7 @@ export function Timeline({ compact = false }: { compact?: boolean }) {
         </span>
         <span className="ml-auto flex items-center gap-1">
           <IconButton icon={Repeat} label={doc.loop ? 'Bucle activado' : 'Bucle desactivado'} active={doc.loop} size="sm" onClick={() => setDoc((d) => void (d.loop = !d.loop))} />
-          <span className="rounded-lg bg-surface-3 px-2 py-1 text-xs font-extrabold">{doc.fps} FPS</span>
+          <span className="rounded-lg bg-surface-3 px-2 py-1 text-xs font-bold">{doc.fps} FPS</span>
         </span>
       </div>
 
@@ -111,7 +111,7 @@ export function Timeline({ compact = false }: { compact?: boolean }) {
                   </button>
                   <div className="relative h-5 flex-1 rounded-lg bg-surface-2">
                     <div
-                      className={cn('absolute inset-y-0.5 rounded-md', sel ? 'bg-gradient-to-r from-accent/70 to-accent-2/70' : 'bg-accent-2/30')}
+                      className={cn('absolute inset-y-0.5 rounded-md', sel ? 'bg-accent/70' : 'bg-accent-2/30')}
                       style={{ left: pct(span.start), width: pct(Math.max(0, Math.min(dur, span.end) - span.start)) }}
                     />
                     <div className="absolute inset-y-0 left-1 flex items-center gap-0.5 text-[11px]">

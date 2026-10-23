@@ -6,22 +6,19 @@ import { SceneRenderer } from '@/lib/render/renderer'
 import { newDrawLayer } from '@/lib/doc/factory'
 import { useEditor } from '@/store/editor'
 import { cn } from '@/components/ui/cn'
-import { Mascot } from '@/components/illustrations/Illustrations'
 import { haptic } from '@/lib/native/haptics'
 
 function EmptyCanvas() {
   const setPanel = useEditor((s) => s.setPanel)
   return (
-    <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 text-center">
-      <Mascot mood="happy" size={120} />
-      <p className="font-display text-xl font-semibold">¡Vamos a crear un sticker!</p>
-      <p className="max-w-xs text-sm text-muted">Suelta una imagen aquí, pégala con Ctrl+V o empieza con una plantilla.</p>
+    <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-4 p-6 text-center">
+      <p className="font-display text-lg font-semibold text-muted">Empieza tu sticker</p>
       <div className="pointer-events-auto flex flex-wrap justify-center gap-2">
-        <button onClick={() => setPanel('import')} className="rounded-2xl bg-gradient-to-r from-accent to-accent-2 px-4 py-2 text-sm font-extrabold text-white shadow-soft cursor-pointer">
+        <button onClick={() => setPanel('import')} className="rounded-full bg-accent px-4 py-2 text-sm font-bold text-white cursor-pointer">
           Importar imagen
         </button>
-        <button onClick={() => setPanel('templates')} className="rounded-2xl border-2 border-line bg-surface px-4 py-2 text-sm font-extrabold cursor-pointer">
-          Ver plantillas
+        <button onClick={() => setPanel('templates')} className="rounded-full bg-surface px-4 py-2 text-sm font-bold cursor-pointer">
+          Plantillas
         </button>
       </div>
     </div>
@@ -99,7 +96,7 @@ export function CanvasStage({ className }: { className?: string }) {
     const wrap = wrapRef.current!
     const ro = new ResizeObserver(() => {
       const b = wrap.getBoundingClientRect()
-      setSize(Math.max(200, Math.floor(Math.min(b.width, b.height) - 8)))
+      setSize(Math.max(160, Math.floor(Math.min(b.width, b.height))))
     })
     ro.observe(wrap)
     return () => ro.disconnect()
@@ -412,7 +409,7 @@ export function CanvasStage({ className }: { className?: string }) {
   return (
     <div ref={wrapRef} className={cn('relative flex min-h-0 min-w-0 items-center justify-center overflow-hidden', className)}>
       <div
-        className="checker relative overflow-hidden rounded-[28px] shadow-soft ring-4 ring-white/70 dark:ring-white/10"
+        className="checker relative overflow-hidden rounded-2xl"
         style={{ width: size, height: size, transform: view.zoom !== 1 ? `translate(${view.x}px, ${view.y}px) scale(${view.zoom})` : undefined }}
       >
         <div ref={hostRef} className={cn('absolute inset-0 touch-none', cursorClass)} aria-label="Lienzo del sticker, 512 por 512 píxeles" role="img" />
@@ -421,7 +418,7 @@ export function CanvasStage({ className }: { className?: string }) {
       {view.zoom !== 1 && (
         <button
           onClick={() => setView({ zoom: 1, x: 0, y: 0 })}
-          className="absolute right-2 top-2 flex items-center gap-1 rounded-full border-2 border-line bg-surface/90 px-3 py-1 text-xs font-extrabold shadow-soft cursor-pointer"
+          className="absolute right-2 top-2 flex items-center gap-1 rounded-full bg-surface px-3 py-1 text-xs font-bold cursor-pointer"
         >
           <Minimize className="size-3.5" /> {Math.round(view.zoom * 100)} % · Ajustar
         </button>

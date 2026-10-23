@@ -34,14 +34,14 @@ export function TopBar() {
   const themeLabel = theme === 'light' ? 'Tema claro' : theme === 'dark' ? 'Tema oscuro' : 'Tema del sistema'
 
   return (
-    <header className="z-30 flex h-[calc(4rem+var(--sat))] shrink-0 items-center gap-1.5 pt-[var(--sat)] pr-[max(0.5rem,var(--sar))] pl-[max(0.5rem,var(--sal))] sm:gap-2 sm:pr-[max(1.25rem,var(--sar))] sm:pl-[max(1.25rem,var(--sal))]">
+    <header className="z-30 flex h-[calc(3.25rem+var(--sat))] lg:h-[calc(4rem+var(--sat))] shrink-0 items-center gap-1.5 pt-[var(--sat)] pr-[max(0.5rem,var(--sar))] pl-[max(0.5rem,var(--sal))] sm:gap-2 sm:pr-[max(1.25rem,var(--sar))] sm:pl-[max(1.25rem,var(--sal))]">
       <button onClick={() => setPage('editor')} className="flex items-center gap-2 rounded-2xl pr-2 cursor-pointer" aria-label="StickerLab, ir al editor">
-        <motion.img src="/favicon.svg" alt="" className="size-9" whileHover={{ rotate: -10, scale: 1.08 }} />
+        <img src="/favicon.svg" alt="" className="size-8" />
         <span className="hidden font-display text-2xl font-bold tracking-tight sm:inline">
           Sticker<span className="text-gradient">Lab</span>
         </span>
       </button>
-      <nav aria-label="Secciones" className="mx-auto flex min-w-0 items-center gap-1 rounded-2xl border-2 border-line bg-surface/80 p-1 backdrop-blur">
+      <nav aria-label="Secciones" className="mx-auto flex min-w-0 items-center gap-0.5 rounded-full bg-surface-3/70 p-1">
         {NAV.map(({ id, label, icon: Icon }) => (
           <button
             key={id}
@@ -49,9 +49,9 @@ export function TopBar() {
             aria-label={label}
             title={label}
             aria-current={page === id ? 'page' : undefined}
-            className={cn('relative flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-sm font-extrabold cursor-pointer transition-colors', page === id ? 'text-white' : 'text-muted hover:text-ink')}
+            className={cn('relative flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-bold cursor-pointer transition-colors', page === id ? 'text-white' : 'text-muted hover:text-ink')}
           >
-            {page === id && <motion.span layoutId="nav-pill" className="absolute inset-0 rounded-xl bg-gradient-to-r from-accent to-accent-2" transition={{ type: 'spring', stiffness: 450, damping: 35 }} />}
+            {page === id && <motion.span layoutId="nav-pill" className="absolute inset-0 rounded-full bg-accent" transition={{ type: 'spring', stiffness: 450, damping: 35 }} />}
             <Icon className="relative size-4" strokeWidth={2.5} />
             <span className={cn('relative', page !== id && 'hidden sm:inline')}>{label}</span>
             {id === 'library' && count > 0 && <span className="relative hidden rounded-full bg-white/25 px-1.5 text-[11px] sm:inline">{count}</span>}
