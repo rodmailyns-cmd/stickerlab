@@ -1,0 +1,39 @@
+# Compila el APK de depuración en cada push y lo deja como artefacto descargable.
+name: APK de Android
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+
+      - uses: android-actions/setup-android@v3
+
+      - run: npm ci
+      - run: npm test
+      - name: Pruebas del ContentProvider (JVM)
+        run: android/gradlew -p android/jvm-tests test
+      - name: Compilar app-debug.apk
+        run: npm run android:debug
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: StickerLab-debug-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk

@@ -1,0 +1,222 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Áreas seguras (muesca, barra de navegación). En el APK, Capacitor rellena --safe-area-inset-* */
+  --sat: var(--safe-area-inset-top, env(safe-area-inset-top, 0px));
+  --sab: var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px));
+  --sal: var(--safe-area-inset-left, env(safe-area-inset-left, 0px));
+  --sar: var(--safe-area-inset-right, env(safe-area-inset-right, 0px));
+  --bg: #fff7fb;
+  --bg-2: #f6f0ff;
+  --surface: #ffffff;
+  --surface-2: #fbf6ff;
+  --surface-3: #f3ebff;
+  --text: #2b2140;
+  --muted: #6e6485;
+  --border: #ede3f7;
+  --accent: #ff4fa0;
+  --accent-2: #8b5cf6;
+  --accent-soft: #ffe1f0;
+  --accent-text: #c2185b;
+  --mint: #4cc9a6;
+  --sky: #5aaeff;
+  --lemon: #ffcf4d;
+  --danger: #e5484d;
+  --ok: #1f9d72;
+  --shadow: 0 10px 30px -12px rgb(122 70 160 / 0.25), 0 2px 6px -2px rgb(122 70 160 / 0.12);
+  --checker-a: #ffffff;
+  --checker-b: #f1eaf8;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #15111f;
+  --bg-2: #1b1530;
+  --surface: #221b33;
+  --surface-2: #2a2140;
+  --surface-3: #33294d;
+  --text: #f5f0ff;
+  --muted: #b3a8cc;
+  --border: #3a2f55;
+  --accent: #ff6eb4;
+  --accent-2: #a78bfa;
+  --accent-soft: #4a2440;
+  --accent-text: #ffb3d6;
+  --mint: #5fe0bd;
+  --sky: #7cc0ff;
+  --lemon: #ffd970;
+  --danger: #ff6b70;
+  --ok: #4cd8a6;
+  --shadow: 0 10px 30px -12px rgb(0 0 0 / 0.6), 0 2px 6px -2px rgb(0 0 0 / 0.4);
+  --checker-a: #2b2440;
+  --checker-b: #241d36;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-ink: var(--text);
+  --color-muted: var(--muted);
+  --color-line: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-text: var(--accent-text);
+  --color-mint: var(--mint);
+  --color-sky: var(--sky);
+  --color-lemon: var(--lemon);
+  --color-danger: var(--danger);
+  --color-ok: var(--ok);
+  --shadow-soft: var(--shadow);
+  --font-sans: "Nunito", ui-rounded, system-ui, sans-serif;
+  --font-display: "Fredoka", "Nunito", ui-rounded, system-ui, sans-serif;
+  --radius-4xl: 2rem;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(40rem 30rem at 0% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%),
+    radial-gradient(36rem 30rem at 100% 0%, color-mix(in srgb, var(--accent-2) 14%, transparent), transparent 70%),
+    radial-gradient(40rem 30rem at 50% 110%, color-mix(in srgb, var(--mint) 12%, transparent), transparent 70%),
+    var(--bg);
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent-2);
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+.checker {
+  background-color: var(--checker-a);
+  background-image:
+    linear-gradient(45deg, var(--checker-b) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--checker-b) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--checker-b) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--checker-b) 75%);
+  background-size: 24px 24px;
+  background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+}
+
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+input[type="range"].sl-range {
+  appearance: none;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) var(--fill, 50%), var(--surface-3) var(--fill, 50%));
+  cursor: pointer;
+}
+input[type="range"].sl-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: #fff;
+  border: 3px solid var(--accent);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.2);
+  transition: transform 0.15s;
+}
+input[type="range"].sl-range::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+input[type="range"].sl-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #fff;
+  border: 3px solid var(--accent);
+}
+
+input[type="color"].sl-color {
+  appearance: none;
+  border: none;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+input[type="color"].sl-color::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+input[type="color"].sl-color::-webkit-color-swatch {
+  border: 2px solid var(--border);
+  border-radius: 999px;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes sl-wiggle {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+.animate-wiggle {
+  animation: sl-wiggle 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Con el teclado abierto en el móvil se oculta la barra inferior para dejar sitio */
+html.keyboard-open .hide-on-keyboard {
+  display: none;
+}
+
+/* Sensación de app nativa en el APK: sin resaltado azul al tocar ni selección accidental */
+html.native {
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+html.native body {
+  -webkit-user-select: none;
+  user-select: none;
+}
+html.native input,
+html.native textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
