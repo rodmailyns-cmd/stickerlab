@@ -25,6 +25,9 @@ jobs:
           cache: gradle
 
       - uses: android-actions/setup-android@v3
+        with:
+          # El paquete por defecto "tools" ya no existe en el SDK actual
+          packages: 'platform-tools platforms;android-36 build-tools;35.0.0'
 
       - run: npm ci
       - run: npm test
